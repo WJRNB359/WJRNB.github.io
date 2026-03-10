@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <title>SY公益验证</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            font-family: "Microsoft Yahei", sans-serif;
+            overflow: hidden;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at center, rgba(255,215,0,0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+        }
+        .star {
+            position: absolute;
+            background: rgba(255,215,0,0.9);
+            width: 2px;
+            height: 2px;
+            animation: starMove linear infinite;
+        }
+        @keyframes starMove {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-100vh); }
+        }
+        .container {
+            width: 100%;
+            max-width: 550px;
+            padding: 15px 20px;
+            text-align: center;
+            color: #ffd700;
+            margin-top: 12vh;
+            box-sizing: border-box;
+        }
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ffd700, #ffc107, #ff9800);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+        }
+        .date {
+            font-size: 1rem;
+            color: #ffd700;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .notice {
+            font-size: 1.8rem;
+            color: #ffd700;
+            margin: 12px 0;
+            text-shadow: 0 0 8px rgba(255,215,0,0.6);
+        }
+
+        /* 一键刷新按钮 */
+        .refresh-box {
+            width: 180px;
+            height: 50px;
+            margin: 15px auto;
+            background: rgba(255,215,0,0.15);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #ffd700;
+            transition: 0.2s;
+        }
+        .refresh-box.success {
+            background: #ffd700;
+            color: #000;
+            box-shadow: 0 0 30px #ffd700, 0 0 60px #ffd700;
+        }
+
+        .slogan {
+            font-size: 0.9rem;
+            color: #ffd700;
+            opacity: 0.7;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .channel {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ffd700, #ffc107);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 15px 0 10px 0;
+        }
+
+        /* 路线列表区域 */
+        .route-list {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .route-item {
+            width: 100%;
+            height: 48px;
+            padding: 0 15px;
+            background: rgba(255,215,0,0.15);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #ffd700;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .route-label {
+            margin-right: 8px;
+            opacity: 0.9;
+            min-width: 60px;
+            text-align: left;
+        }
+
+        /* 弹窗样式 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+        .modal-box {
+            width: 320px;
+            padding: 30px;
+            background: #0a0a0a;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            text-align: center;
+            color: #ffd700;
+            box-shadow: 0 0 30px #ffd700;
+        }
+        .modal-title {
+            font-size: 20px;
+            color: #ffd700;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+        .modal-tip {
+            font-size: 14px;
+            color: #ffd700;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .modal-btn {
+            padding: 10px 25px;
+            background: #ffd700;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1 class="title">SY端口</h1>
+        <div class="date">今天日期 2026年03月09日 17:00:00</div>
+        
+        <div class="notice">服务器已连接成功</div>
+        <div class="notice">端口加速已开启</div>
+        
+        <div class="slogan">祝你玩得愉快.祝你玩的开心</div>
+        <div class="slogan">祝你每一把赚千万.祝你愉快</div>
+        
+        <div class="channel">作者SY</div>
+
+        <!-- 一键刷新按钮移到作者小K下面 -->
+        <div class="refresh-box" id="refreshBtn" onclick="doRefresh()">一键刷新</div>
+
+        <!-- 路线列表：路线一、路线二、路线三 -->
+        <div class="route-list">
+            <div class="route-item">
+                <span class="route-label">路线一：</span>
+                <span>香港A节点 → 延迟 28ms</span>
+            </div>
+            <div class="route-item">
+                <span class="route-label">路线二：</span>
+                <span>日本B节点 → 延迟 35ms</span>
+            </div>
+            <div class="route-item">
+                <span class="route-label">路线三：</span>
+                <span>新加坡C节点 → 延迟 42ms</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗 -->
+    <div class="modal" id="modal">
+        <div class="modal-box">
+            <div class="modal-title">连接提示</div>
+            <div class="modal-tip">端口加速已成功启动，运行稳定</div>
+            <button class="modal-btn" onclick="closeModal()">确定</button>
+        </div>
+    </div>
+
+    <script>
+        // 生成金色星星
+        function createStars() {
+            const starCount = 150;
+            const container = document.body;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDuration = 5 + Math.random() * 15 + 's';
+                star.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        // 关闭弹窗
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+
+        // 一键刷新逻辑（不刷新页面）
+        function doRefresh() {
+            let btn = document.getElementById("refreshBtn");
+            btn.innerText = "刷新成功";
+            btn.classList.add("success");
+            
+            setTimeout(() => {
+                btn.innerText = "一键刷新";
+                btn.classList.remove("success");
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
